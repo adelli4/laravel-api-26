@@ -16,6 +16,7 @@ class ProductResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'category_id' => $this->category_id,
             'url' => route('products.show', $this->id),
             'nama' => $this->nama,
             'harga' => $this->harga,
