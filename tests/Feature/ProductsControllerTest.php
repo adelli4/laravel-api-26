@@ -16,6 +16,7 @@ it('returns products with the newest product first', function () {
     $this->getJson('/api/products')
         ->assertOk()
         ->assertJsonPath('data.0.id', $newerProduct->id)
+        ->assertJsonPath('data.0.category_id', $newerProduct->category_id)
         ->assertJsonPath('data.0.url', route('products.show', $newerProduct))
         ->assertJsonPath('data.1.id', $olderProduct->id);
 });
