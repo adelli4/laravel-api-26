@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -127,9 +128,20 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         $product = fake()->randomElement(self::catalog());
+        $householdProducts = [
+            'Sabun Mandi',
+            'Sampo Rambut',
+            'Pasta Gigi',
+            'Deterjen Bubuk',
+            'Tisu Wajah',
+            'Minyak Kayu Putih',
+        ];
+        $categoryName = in_array($product['nama'], $householdProducts, true) ? 'rumah tangga' : 'makanan';
+        $category = Category::firstOrCreate(['name' => $categoryName]);
 
         return [
             ...$product,
+            'category_id' => $category->id,
             'sku' => 'PRD-'.fake()->unique()->numerify('#####'),
             'stok' => fake()->numberBetween(0, 100),
         ];
