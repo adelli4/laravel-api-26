@@ -15,13 +15,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // membuat data pengguna awal agar aplikasi masih memiliki akun default untuk kebutuhan pengujian.
+        User::firstOrCreate(
+            ['email' => 'test@example.com'],
+            ['name' => 'Test User']
+        );
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
-
+        $this->call(CategorySeeder::class);
         $this->call(ProductSeeder::class);
     }
 }
